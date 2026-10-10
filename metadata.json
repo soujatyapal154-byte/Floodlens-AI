@@ -1,0 +1,6 @@
+{
+  "name": "FloodLens AI — Himalayan Flood Impact & Connectivity Analyzer",
+  "description": "Satellite-powered flood impact and road connectivity analyzer for Himalayan terrain with Sentinel-1 SAR change detection, DEM terrain flow paths, and Situation Report Copilot.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
