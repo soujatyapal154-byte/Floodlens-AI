@@ -14,6 +14,9 @@ import {
   Radio,
   Search,
   Sparkles,
+  ChevronDown,
+  ChevronUp,
+  ShieldCheck,
 } from 'lucide-react';
 import { AreaPickerMap } from '../components/AreaPickerMap';
 
@@ -102,6 +105,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   const [selectedAreaName, setSelectedAreaName] = useState(quickAreas[0].name);
   const [selectedBbox, setSelectedBbox] = useState<BoundingBox>(quickAreas[0].bbox);
   const [floodDate, setFloodDate] = useState('2026-08-12');
+  const [showPipelineDetails, setShowPipelineDetails] = useState(false);
 
   const textInputRef = useRef<HTMLInputElement>(null);
   const nativeDatePickerRef = useRef<HTMLInputElement>(null);
@@ -209,7 +213,7 @@ export const HomePage: React.FC<HomePageProps> = ({
             />
           </div>
 
-          {/* Quick Area Preset Cards */}
+          {/* Quick Area Preset Cards with Monospace Telemetry Badges */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
             {quickAreas.map((area) => {
               const isSelected = selectedAreaName === area.name;
@@ -218,7 +222,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   key={area.name}
                   type="button"
                   onClick={() => handleSelectArea(area)}
-                  className={`p-3 rounded-xl border text-left transition-all duration-200 flex items-center justify-between group touch-manipulation active:scale-[0.99] ${
+                  className={`field-touch-target p-3.5 rounded-xl border text-left transition-all duration-200 flex items-center justify-between group touch-manipulation active:scale-[0.99] ${
                     isSelected
                       ? 'bg-cyan-950/70 border-cyan-500 text-white shadow-md shadow-cyan-500/10 ring-1 ring-cyan-500/50'
                       : 'bg-slate-950/70 border-slate-800/80 text-slate-300 hover:text-white hover:border-slate-700 hover:bg-slate-900/60'
@@ -228,12 +232,15 @@ export const HomePage: React.FC<HomePageProps> = ({
                     <div className="text-xs font-bold truncate flex items-center gap-1.5">
                       <span>{area.shortName}</span>
                     </div>
-                    <div className="text-[11px] text-slate-400 truncate">
+                    <div className="text-[11px] text-slate-400 truncate mt-0.5">
                       {area.district}
+                    </div>
+                    <div className="text-[10px] font-mono text-cyan-400/80 mt-1">
+                      {area.bbox.minLat.toFixed(2)}°N, {area.bbox.minLng.toFixed(2)}°E
                     </div>
                   </div>
                   {isSelected ? (
-                    <div className="w-5 h-5 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center shrink-0">
                       <Check className="w-3.5 h-3.5 stroke-[3]" />
                     </div>
                   ) : (
@@ -496,6 +503,57 @@ export const HomePage: React.FC<HomePageProps> = ({
             Topological graph routing evaluates whether mountain villages have severed road connections to regional hubs and emergency medical facilities.
           </p>
         </div>
+      </div>
+
+      {/* PROGRESSIVE DISCLOSURE: TECHNICAL SAR PIPELINE VERIFICATION PROTOCOL */}
+      <div className="command-card rounded-2xl overflow-hidden shadow-lg border border-slate-800">
+        <button
+          type="button"
+          onClick={() => setShowPipelineDetails(!showPipelineDetails)}
+          className="field-touch-target w-full p-4 flex items-center justify-between text-xs font-bold text-slate-300 hover:text-white transition-colors"
+        >
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-cyan-400" />
+            <span className="font-mono text-[11px] uppercase tracking-wider text-cyan-300">
+              Technical SAR Pipeline &amp; Precision Calibration Specs
+            </span>
+          </div>
+          {showPipelineDetails ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+
+        {showPipelineDetails && (
+          <div className="p-5 pt-0 border-t border-slate-800/80 space-y-4 text-xs text-slate-300 font-mono animate-in fade-in">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-4">
+              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] font-sans">Sensor &amp; Instrument:</span>
+                <span className="text-cyan-300 font-bold">Sentinel-1 C-SAR (IW GRD)</span>
+              </div>
+              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] font-sans">Backscatter Threshold (Δσ⁰):</span>
+                <span className="text-amber-400 font-bold">≤ -18.4 dB (Otsu Adaptive)</span>
+              </div>
+              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] font-sans">DEM Flow Tracing:</span>
+                <span className="text-emerald-400 font-bold">Copernicus 30m Steepest-Descent</span>
+              </div>
+              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] font-sans">Speckle Suppression:</span>
+                <span className="text-purple-300 font-bold">Lee Filter (5×5 Adaptive Kernel)</span>
+              </div>
+              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] font-sans">Infrastructure Buffer:</span>
+                <span className="text-rose-400 font-bold">25m OSM Vector Dilation</span>
+              </div>
+              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80">
+                <span className="text-slate-500 block text-[10px] font-sans">Routing Algorithm:</span>
+                <span className="text-blue-300 font-bold">Dijkstra Topological Shortest Path</span>
+              </div>
+            </div>
+            <p className="text-[11px] text-slate-400 font-sans leading-relaxed pt-1">
+              Field workers operate on simplified severity chips; full radiometrically calibrated backscatter matrices and DEM flow vectors remain available for GIS analysts and civil engineers.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

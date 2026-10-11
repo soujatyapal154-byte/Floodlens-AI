@@ -43,7 +43,7 @@ export const AIAnalysisPage: React.FC<AIAnalysisPageProps> = ({
       </div>
 
       {/* Mandatory AI Label Notice */}
-      <div className="enterprise-card p-4 rounded-xl border-purple-800/50 bg-purple-950/20 text-xs text-purple-200 flex items-start gap-3">
+      <div className="command-card p-4 rounded-xl border-purple-800/50 bg-purple-950/20 text-xs text-purple-200 flex items-start gap-3">
         <ShieldAlert className="w-4 h-4 shrink-0 text-purple-400 mt-0.5" />
         <p className="leading-relaxed text-[11px]">
           <strong>Notice:</strong> All outputs from the deep learning component are classified as{' '}
@@ -57,34 +57,34 @@ export const AIAnalysisPage: React.FC<AIAnalysisPageProps> = ({
           Segmentation Classes
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-          <div className="enterprise-card p-3.5 rounded-xl">
+          <div className="command-card p-3.5 rounded-xl">
             <span className="w-3 h-3 rounded-full bg-cyan-500 inline-block mb-1"></span>
             <div className="font-bold text-white">Water / Flood</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Smooth radar reflection</div>
+            <div className="text-[11px] text-slate-400 mt-0.5 font-mono">Smooth radar reflection</div>
           </div>
 
-          <div className="enterprise-card p-3.5 rounded-xl">
+          <div className="command-card p-3.5 rounded-xl">
             <span className="w-3 h-3 rounded-full bg-amber-500 inline-block mb-1"></span>
             <div className="font-bold text-white">Possible Debris</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Rough mudflow change</div>
+            <div className="text-[11px] text-slate-400 mt-0.5 font-mono">Rough mudflow change</div>
           </div>
 
-          <div className="enterprise-card p-3.5 rounded-xl">
+          <div className="command-card p-3.5 rounded-xl">
             <span className="w-3 h-3 rounded-full bg-slate-400 inline-block mb-1"></span>
             <div className="font-bold text-white">Normal Land</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Dry mountain terrain</div>
+            <div className="text-[11px] text-slate-400 mt-0.5 font-mono">Dry mountain terrain</div>
           </div>
 
-          <div className="enterprise-card p-3.5 rounded-xl">
+          <div className="command-card p-3.5 rounded-xl">
             <span className="w-3 h-3 rounded-full bg-purple-500 inline-block mb-1"></span>
             <div className="font-bold text-white">Uncertain</div>
-            <div className="text-[11px] text-slate-400 mt-0.5">Mountain radar shadow</div>
+            <div className="text-[11px] text-slate-400 mt-0.5 font-mono">Mountain radar shadow</div>
           </div>
         </div>
       </div>
 
       {/* Actual Calculated Model Metrics */}
-      <div className="enterprise-card rounded-2xl p-6 shadow-xl space-y-4">
+      <div className="command-card rounded-2xl p-6 shadow-xl space-y-4">
         <h2 className="text-sm font-bold text-white">Model Metrics (Sen1Floods11 &amp; Kuro Siwo)</h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono tabular-nums text-xs">

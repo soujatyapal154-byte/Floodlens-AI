@@ -27,6 +27,7 @@ export default function App() {
   const [isAiModalOpen, setIsAiModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [quotaExceeded, setQuotaExceeded] = useState(false);
+  const [mapLayersOpen, setMapLayersOpen] = useState(false);
 
   useEffect(() => {
     const handleQuota = () => setQuotaExceeded(true);
@@ -125,16 +126,24 @@ export default function App() {
       {/* Top Header */}
       <Header
         analysisData={analysisData}
-        onSelectPage={(page) => setCurrentPage(page)}
+        onSelectPage={(page) => {
+          if (page !== 'map') setMapLayersOpen(false);
+          setCurrentPage(page);
+          setIsMobileMenuOpen(false);
+        }}
         onOpenAiAssistant={() => setIsAiModalOpen(true)}
         onToggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        isMobileMenuOpen={isMobileMenuOpen}
       />
 
       {/* Main Workspace (Sidebar + Dynamic Page) */}
       <div className="flex flex-1 overflow-hidden relative">
         <Sidebar
           currentPage={currentPage}
-          onSelectPage={(page) => setCurrentPage(page)}
+          onSelectPage={(page) => {
+            if (page !== 'map') setMapLayersOpen(false);
+            setCurrentPage(page);
+          }}
           isMobileOpen={isMobileMenuOpen}
           onCloseMobile={() => setIsMobileMenuOpen(false)}
         />
@@ -168,6 +177,9 @@ export default function App() {
               analysisData={analysisData}
               onSelectPage={(page) => setCurrentPage(page)}
               onOpenAiAssistant={() => setIsAiModalOpen(true)}
+              initialLayersOpen={mapLayersOpen}
+              layersOpen={mapLayersOpen}
+              onLayersOpenChange={(open) => setMapLayersOpen(open)}
             />
           )}
 
@@ -205,11 +217,29 @@ export default function App() {
         </main>
       </div>
 
-      {/* Production-Grade Mobile Bottom Navigation Bar */}
+      {/* Production-Grade Mobile Bottom Navigation Dock */}
       <BottomNav
         currentPage={currentPage}
-        onSelectPage={(page) => setCurrentPage(page)}
-        onToggleMoreMenu={() => setIsMobileMenuOpen(true)}
+        onSelectPage={(page) => {
+          if (page !== 'map') {
+            setMapLayersOpen(false);
+          }
+          setCurrentPage(page);
+          setIsMobileMenuOpen(false);
+        }}
+        onToggleLayers={() => {
+          if (currentPage === 'map') {
+            setMapLayersOpen((prev) => !prev);
+          } else {
+            setCurrentPage('map');
+            setMapLayersOpen(true);
+          }
+        }}
+        isLayersOpen={currentPage === 'map' && mapLayersOpen}
+        onOpenAiCopilot={() => setIsAiModalOpen(true)}
+        isAiCopilotOpen={isAiModalOpen}
+        onToggleMoreMenu={() => setIsMobileMenuOpen((prev) => !prev)}
+        isMenuOpen={isMobileMenuOpen}
         analysisData={analysisData}
       />
 

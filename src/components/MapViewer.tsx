@@ -46,6 +46,9 @@ interface MapViewerProps {
   showFlowPath?: boolean;
   onMapClickCoordinate?: (coord: [number, number]) => void;
   highlightSettlementId?: string | null;
+  initialLayersOpen?: boolean;
+  layersOpen?: boolean;
+  onLayersOpenChange?: (open: boolean) => void;
 }
 
 // Controller for camera manipulation
@@ -113,6 +116,9 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   showFlowPath = false,
   onMapClickCoordinate,
   highlightSettlementId,
+  initialLayersOpen = false,
+  layersOpen,
+  onLayersOpenChange,
 }) => {
   const rawKey =
     import.meta.env.VITE_GOOGLE_MAPS_API_KEY ||
@@ -131,12 +137,27 @@ export const MapViewer: React.FC<MapViewerProps> = ({
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [mapType, setMapType] = useState<string>('terrain');
   const [searchQuery, setSearchQuery] = useState('');
-  const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(false);
+  const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(
+    layersOpen !== undefined ? layersOpen : initialLayersOpen
+  );
   const [isLegendOpen, setIsLegendOpen] = useState(true);
   const [cursorCoords, setCursorCoords] = useState<{
     lat: number;
     lng: number;
   } | null>(null);
+
+  useEffect(() => {
+    if (layersOpen !== undefined) {
+      setIsLayerPanelOpen(layersOpen);
+    } else if (initialLayersOpen) {
+      setIsLayerPanelOpen(true);
+    }
+  }, [layersOpen, initialLayersOpen]);
+
+  const handleToggleLayers = (nextOpen: boolean) => {
+    setIsLayerPanelOpen(nextOpen);
+    onLayersOpenChange?.(nextOpen);
+  };
 
   // Active InfoWindow state
   const [selectedRoad, setSelectedRoad] = useState<InfrastructureFeature | null>(
@@ -724,11 +745,11 @@ export const MapViewer: React.FC<MapViewerProps> = ({
           {/* Layers Toggle [ Layers ] */}
           <button
             type="button"
-            onClick={() => setIsLayerPanelOpen(!isLayerPanelOpen)}
+            onClick={() => handleToggleLayers(!isLayerPanelOpen)}
             title="Toggle data layers"
-            className={`flex items-center gap-1 px-2 py-1 rounded-lg text-[11px] font-medium transition-colors ${
+            className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all ${
               isLayerPanelOpen
-                ? 'bg-cyan-600 text-white'
+                ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_12px_rgba(6,182,212,0.3)] font-bold'
                 : 'bg-slate-800 hover:bg-slate-700 text-slate-200'
             }`}
           >
@@ -795,8 +816,10 @@ export const MapViewer: React.FC<MapViewerProps> = ({
               <span>Visible Overlays</span>
             </span>
             <button
-              onClick={() => setIsLayerPanelOpen(false)}
+              type="button"
+              onClick={() => handleToggleLayers(false)}
               className="text-slate-400 hover:text-white text-xs"
+              aria-label="Close layers panel"
             >
               ✕
             </button>
@@ -995,17 +1018,26 @@ export const MapViewer: React.FC<MapViewerProps> = ({
         </div>
       )}
 
-      {/* BOTTOM COORDINATES BAR */}
-      <div className="absolute bottom-2 left-3 right-3 sm:right-auto z-10 flex items-center gap-3 text-[10px] font-mono text-slate-400 bg-slate-900/80 backdrop-blur-md px-3 py-1 rounded-lg border border-slate-800 pointer-events-none">
-        {cursorCoords ? (
-          <span>
-            {cursorCoords.lat.toFixed(4)}°N, {cursorCoords.lng.toFixed(4)}°E
-          </span>
-        ) : (
-          <span>Himalayan Mountain Corridor</span>
-        )}
-        <span className="text-slate-600">•</span>
-        <span className="text-cyan-400">Google Maps JavaScript API</span>
+      {/* BOTTOM SCIENTIFIC GIS TELEMETRY & COORDINATES HUD */}
+      <div className="absolute bottom-2.5 left-3 right-3 sm:right-auto z-10 flex flex-wrap items-center gap-2.5 text-[10px] font-mono text-slate-300 bg-slate-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 shadow-2xl pointer-events-none">
+        <div className="flex items-center gap-1 text-cyan-400 font-bold">
+          <span>⊕</span>
+          {cursorCoords ? (
+            <span>
+              LAT {cursorCoords.lat.toFixed(4)}°N · LNG {cursorCoords.lng.toFixed(4)}°E
+            </span>
+          ) : (
+            <span>
+              LAT {analysisData.center ? analysisData.center[0].toFixed(4) : '28.1600'}°N · LNG {analysisData.center ? analysisData.center[1].toFixed(4) : '85.3400'}°E
+            </span>
+          )}
+        </div>
+        <span className="text-slate-600 hidden sm:inline" aria-hidden="true">|</span>
+        <span className="text-slate-400 hidden sm:inline">CRS: EPSG:4326 (WGS 84)</span>
+        <span className="text-slate-600 hidden md:inline" aria-hidden="true">|</span>
+        <span className="text-amber-400 font-semibold hidden md:inline">Δσ⁰: ≤ -18.4 dB</span>
+        <span className="text-slate-600 hidden lg:inline" aria-hidden="true">|</span>
+        <span className="text-emerald-400 font-medium hidden lg:inline">DEM 30m Active</span>
       </div>
     </div>
   );

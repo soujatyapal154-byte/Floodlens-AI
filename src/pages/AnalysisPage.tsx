@@ -21,6 +21,7 @@ import {
   Radio,
 } from 'lucide-react';
 import { WhyModal } from '../components/WhyModal';
+import { SectorRiskChart } from '../components/SectorRiskChart';
 
 interface AnalysisPageProps {
   analysisData: AnalysisRunData | null;
@@ -269,7 +270,7 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
       {/* THREE LARGE METRIC CARDS WITH MODERN BORDERS & SUBTLE GLOWS */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {/* Card 1: FLOOD INUNDATION */}
-        <div className="enterprise-card glow-card-cyan rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+        <div className="command-card glow-card-cyan rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -297,8 +298,10 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
               {totalFloodDebrisKm2} <span className="text-sm font-normal text-slate-400 font-sans">km²</span>
             </div>
 
-            <div className="text-[10px] font-mono text-cyan-300/90 bg-cyan-950/70 px-2 py-0.5 rounded border border-cyan-800/60 inline-block">
-              Sentinel-1 SAR C-band analysis
+            <div className="flex items-center gap-2">
+              <span className="gis-telemetry-badge">
+                Δσ⁰ ≤ -18.4 dB
+              </span>
             </div>
 
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -310,7 +313,7 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
 
           <button
             onClick={() => onSelectPage('map')}
-            className="flex items-center justify-between text-xs font-bold text-cyan-400 hover:text-cyan-300 pt-3 border-t border-slate-800/80 transition-colors"
+            className="field-touch-target flex items-center justify-between text-xs font-bold text-cyan-400 hover:text-cyan-300 pt-3 border-t border-slate-800/80 transition-colors"
           >
             <span>Explore on Map</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -318,7 +321,7 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
         </div>
 
         {/* Card 2: EXPOSED INFRASTRUCTURE */}
-        <div className="enterprise-card glow-card-amber rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+        <div className="command-card glow-card-amber rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -349,6 +352,12 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
               </div>
             </div>
 
+            <div className="pt-0.5">
+              <span className="status-chip-high">
+                🟠 HIGH EXPOSURE
+              </span>
+            </div>
+
             <p className="text-xs text-slate-400 leading-relaxed">
               Mapped infrastructure intersecting or bordering the 25m SAR inundation envelope.
             </p>
@@ -356,7 +365,7 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
 
           <button
             onClick={() => onSelectPage('infrastructure')}
-            className="flex items-center justify-between text-xs font-bold text-amber-400 hover:text-amber-300 pt-3 border-t border-slate-800/80 transition-colors"
+            className="field-touch-target flex items-center justify-between text-xs font-bold text-amber-400 hover:text-amber-300 pt-3 border-t border-slate-800/80 transition-colors"
           >
             <span>Inspect Infrastructure</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -364,7 +373,7 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
         </div>
 
         {/* Card 3: SETTLEMENT ISOLATION */}
-        <div className="enterprise-card glow-card-rose rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
+        <div className="command-card glow-card-rose rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4">
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -390,6 +399,12 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
               {problemSettlementsCount} <span className="text-sm font-normal text-slate-400 font-sans">settlements</span>
             </div>
 
+            <div className="pt-0.5">
+              <span className="status-chip-critical">
+                🔴 CRITICAL ISOLATION
+              </span>
+            </div>
+
             <p className="text-xs text-slate-400 leading-relaxed">
               Settlements cut off from primary driving routes or requiring critical multi-hour mountain detours.
             </p>
@@ -397,13 +412,16 @@ export const AnalysisPage: React.FC<AnalysisPageProps> = ({
 
           <button
             onClick={() => onSelectPage('connectivity')}
-            className="flex items-center justify-between text-xs font-bold text-rose-400 hover:text-rose-300 pt-3 border-t border-slate-800/80 transition-colors"
+            className="field-touch-target flex items-center justify-between text-xs font-bold text-rose-400 hover:text-rose-300 pt-3 border-t border-slate-800/80 transition-colors"
           >
             <span>Review Connectivity Graph</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
+
+      {/* SECTOR RISK & HISTORICAL VULNERABILITY RECHARTS BAR CHART */}
+      <SectorRiskChart analysisData={analysisData} />
 
       {/* Optical Sensor Status Note */}
       <div className="p-4 rounded-xl enterprise-card text-xs text-slate-300 flex items-start gap-3">

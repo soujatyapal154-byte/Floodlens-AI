@@ -1,6 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AnalysisRunData, PageId } from '../types';
-import { Printer, ShieldAlert } from 'lucide-react';
+import {
+  Printer,
+  ShieldAlert,
+  FileDown,
+  FileText,
+  Code2,
+  CheckCircle2,
+  Download,
+  WifiOff,
+} from 'lucide-react';
+import { exportAnalysisAsJson, exportAnalysisAsPdf } from '../services/reportExport';
 
 interface ReportPageProps {
   analysisData: AnalysisRunData | null;
@@ -11,6 +21,8 @@ export const ReportPage: React.FC<ReportPageProps> = ({
   analysisData,
   onSelectPage,
 }) => {
+  const [downloadSuccess, setDownloadSuccess] = useState<string | null>(null);
+
   if (!analysisData) {
     return (
       <div className="p-8 text-center max-w-md mx-auto space-y-4 pt-16 sm:pt-24">
@@ -28,6 +40,33 @@ export const ReportPage: React.FC<ReportPageProps> = ({
     );
   }
 
+  const triggerDownloadNotice = (type: string) => {
+    setDownloadSuccess(type);
+    setTimeout(() => {
+      setDownloadSuccess(null);
+    }, 4000);
+  };
+
+  const handleDownloadPdf = () => {
+    try {
+      exportAnalysisAsPdf(analysisData);
+      triggerDownloadNotice('PDF Report');
+    } catch (err) {
+      console.error('Failed to export PDF:', err);
+      // Fallback to window.print() if jsPDF encounters an unexpected issue
+      window.print();
+    }
+  };
+
+  const handleDownloadJson = () => {
+    try {
+      exportAnalysisAsJson(analysisData);
+      triggerDownloadNotice('JSON Data File');
+    } catch (err) {
+      console.error('Failed to export JSON:', err);
+    }
+  };
+
   const handlePrint = () => {
     window.print();
   };
@@ -44,22 +83,69 @@ export const ReportPage: React.FC<ReportPageProps> = ({
       {/* Top Bar Action (Hidden when printing) */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800/80 pb-4 print:hidden">
         <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Situation Report (SitRep)</h1>
+          <div className="flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight">Situation Report (SitRep)</h1>
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-950/90 text-emerald-300 border border-emerald-800 text-[10px] font-mono font-bold">
+              <WifiOff className="w-3 h-3 text-emerald-400" />
+              <span>OFFLINE READY</span>
+            </span>
+          </div>
           <p className="text-xs text-slate-400 mt-0.5">
             Operational briefing for {analysisData.areaName} ({analysisData.floodDate}).
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        {/* Download & Print Actions */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Download PDF (Primary) */}
           <button
-            onClick={handlePrint}
-            className="btn-primary-gradient flex items-center gap-2 px-4 py-2 rounded-xl text-white font-bold text-xs transition-all shadow-lg active:scale-95"
+            type="button"
+            onClick={handleDownloadPdf}
+            title="Download formatted field PDF document"
+            className="btn-primary-gradient flex items-center gap-2 px-3.5 py-2 rounded-xl text-white font-bold text-xs transition-all shadow-lg active:scale-95"
           >
-            <Printer className="w-4 h-4" />
-            <span>DOWNLOAD / PRINT REPORT</span>
+            <FileDown className="w-4 h-4 text-cyan-100" />
+            <span>DOWNLOAD PDF</span>
+          </button>
+
+          {/* Export JSON (Secondary) */}
+          <button
+            type="button"
+            onClick={handleDownloadJson}
+            title="Export raw JSON telemetry for offline GIS & mapping software"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800 text-slate-200 font-bold text-xs transition-all shadow-sm active:scale-95"
+          >
+            <Code2 className="w-4 h-4 text-cyan-400" />
+            <span>EXPORT JSON</span>
+          </button>
+
+          {/* Print Dossier */}
+          <button
+            type="button"
+            onClick={handlePrint}
+            title="Print or save via browser dialog"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 hover:bg-slate-800 text-slate-300 font-semibold text-xs transition-all shadow-sm active:scale-95"
+          >
+            <Printer className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">PRINT</span>
           </button>
         </div>
       </div>
+
+      {/* Download Success Notification */}
+      {downloadSuccess && (
+        <div className="p-3 bg-emerald-950/80 border border-emerald-500/50 rounded-xl flex items-center justify-between text-xs text-emerald-200 animate-in fade-in print:hidden shadow-lg">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>
+              <strong>{downloadSuccess} successfully generated!</strong> Saved to your local device for offline field operations.
+            </span>
+          </div>
+          <span className="hidden sm:inline-block font-mono text-[10px] text-emerald-300 px-2 py-0.5 rounded bg-emerald-900/60 font-semibold">
+            OFFLINE READY
+          </span>
+        </div>
+      )}
 
       {/* One-Page Report Container */}
       <div className="enterprise-card text-slate-100 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 print:bg-white print:text-black print:border-none print:shadow-none print:p-0">
@@ -170,6 +256,33 @@ export const ReportPage: React.FC<ReportPageProps> = ({
           </p>
           <div className="pt-1 border-t border-slate-800 print:border-slate-300 font-mono text-[9px]">
             Contains modified Copernicus Sentinel data 2026. © OpenStreetMap contributors. Copernicus DEM © Airbus/DLR/ESA. AI trained on Sen1Floods11 and Kuro Siwo.
+          </div>
+        </div>
+
+        {/* Field Team Export Controls (Print hidden) */}
+        <div className="pt-2 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 print:hidden">
+          <div className="flex items-center gap-1.5 font-mono text-[11px] text-cyan-400">
+            <Download className="w-3.5 h-3.5" />
+            <span>Field Dossier Package ready for offline deployment.</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleDownloadPdf}
+              className="px-3 py-1.5 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-700/60 text-cyan-300 hover:text-white font-bold text-xs transition-colors flex items-center gap-1.5"
+            >
+              <FileDown className="w-3.5 h-3.5" />
+              <span>Download PDF</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleDownloadJson}
+              className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-bold text-xs transition-colors flex items-center gap-1.5"
+            >
+              <Code2 className="w-3.5 h-3.5" />
+              <span>Export JSON</span>
+            </button>
           </div>
         </div>
       </div>

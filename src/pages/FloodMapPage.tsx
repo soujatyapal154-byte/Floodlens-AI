@@ -8,12 +8,18 @@ interface FloodMapPageProps {
   analysisData: AnalysisRunData | null;
   onSelectPage: (page: PageId) => void;
   onOpenAiAssistant: () => void;
+  initialLayersOpen?: boolean;
+  layersOpen?: boolean;
+  onLayersOpenChange?: (open: boolean) => void;
 }
 
 export const FloodMapPage: React.FC<FloodMapPageProps> = ({
   analysisData,
   onSelectPage,
   onOpenAiAssistant,
+  initialLayersOpen = false,
+  layersOpen,
+  onLayersOpenChange,
 }) => {
   const [flowPathData, setFlowPathData] = useState<FlowPathResult | null>(null);
   const [isCalculatingFlow, setIsCalculatingFlow] = useState(false);
@@ -85,6 +91,9 @@ export const FloodMapPage: React.FC<FloodMapPageProps> = ({
             heightClass="h-[520px] sm:h-[620px]"
             showFlowPath={true}
             onMapClickCoordinate={handleMapClick}
+            initialLayersOpen={initialLayersOpen}
+            layersOpen={layersOpen}
+            onLayersOpenChange={onLayersOpenChange}
           />
         </div>
 

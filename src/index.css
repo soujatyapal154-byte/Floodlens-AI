@@ -2,61 +2,102 @@
 
 :root {
   color-scheme: dark;
+
+  /* Tactical Command Mode (Default Dark) */
+  --color-canvas-bg: #0B0F19;
+  --color-surface-card: #111827;
+  --color-surface-elevated: #162032;
+  --color-surface-subtle: #0e1626;
+  --color-border-subtle: #1e293b;
+  --color-border-active: #334155;
+  --color-radar-cyan: #06B6D4;
+  --color-alert-amber: #F59E0B;
+  --color-emergency-red: #EF4444;
+  --color-alpine-white: #F8FAFC;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
 }
 
+/* Tactical Command Dark Mode - Deep Obsidian #0B0F19 */
+[data-theme="dark"],
+html.dark,
+body.dark {
+  color-scheme: dark;
+  background-color: #0B0F19;
+  color: #F8FAFC;
+
+  --color-slate-950: #0B0F19;
+  --color-slate-900: #111827;
+  --color-slate-850: #141E30;
+  --color-slate-800: #1e293b;
+  --color-slate-700: #334155;
+  --color-slate-600: #475569;
+  --color-slate-500: #64748b;
+  --color-slate-400: #94a3b8;
+  --color-slate-300: #cbd5e1;
+  --color-slate-200: #e2e8f0;
+  --color-slate-100: #f1f5f9;
+  --color-slate-50: #f8fafc;
+}
+
+/* Field Sunlight Light Mode - Ultra High Contrast for Bright Daylight Outdoors */
 [data-theme="light"],
 html.light,
 body.light {
   color-scheme: light;
+  background-color: #F8FAFC;
+  color: #0B0F19;
 
-  /* Remap Tailwind CSS v4 color tokens for Slate palette */
-  --color-slate-950: #f8fafc; /* Canvas background */
-  --color-slate-900: #ffffff; /* Card / Panel / Header surface */
-  --color-slate-850: #f1f5f9; /* Subtle background surfaces */
-  --color-slate-800: #e2e8f0; /* Borders / Dividers / Muted surfaces */
-  --color-slate-750: #cbd5e1;
-  --color-slate-700: #cbd5e1; /* Active borders / Outlines */
-  --color-slate-600: #94a3b8; /* Muted icons / Inactive elements */
-  --color-slate-500: #64748b; /* Tertiary captions / Helper labels */
-  --color-slate-400: #475569; /* Secondary body text */
-  --color-slate-300: #334155; /* Primary body text */
-  --color-slate-200: #1e293b; /* Headings / Bold highlights */
-  --color-slate-100: #0f172a; /* Main dark text */
-  --color-slate-50: #020617;  /* Maximum dark text */
+  --color-canvas-bg: #F8FAFC;
+  --color-surface-card: #FFFFFF;
+  --color-surface-elevated: #F1F5F9;
+  --color-surface-subtle: #E2E8F0;
+  --color-border-subtle: #CBD5E1;
+  --color-border-active: #94A3B8;
+  --color-text-primary: #0B0F19;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748B;
 
-  /* Remap Cyan palette for high contrast against light backgrounds */
-  --color-cyan-950: #e0f2fe;
-  --color-cyan-900: #bae6fd;
-  --color-cyan-800: #7dd3fc;
-  --color-cyan-600: #0284c7;
-  --color-cyan-500: #0284c7;
-  --color-cyan-400: #0369a1;
+  /* Remap Tailwind Slate tokens to high-contrast daylight palette */
+  --color-slate-950: #F8FAFC;
+  --color-slate-900: #FFFFFF;
+  --color-slate-850: #F1F5F9;
+  --color-slate-800: #E2E8F0;
+  --color-slate-750: #CBD5E1;
+  --color-slate-700: #94A3B8;
+  --color-slate-600: #64748B;
+  --color-slate-500: #475569;
+  --color-slate-400: #334155;
+  --color-slate-300: #1E293B;
+  --color-slate-200: #0F172A;
+  --color-slate-100: #0B0F19;
+  --color-slate-50: #020617;
+
+  /* High contrast accents for daylight sunlight */
+  --color-cyan-950: #E0F2FE;
+  --color-cyan-900: #BAE6FD;
+  --color-cyan-800: #7DD3FC;
+  --color-cyan-600: #0284C7;
+  --color-cyan-500: #0284C7;
+  --color-cyan-400: #0369A1;
   --color-cyan-300: #075985;
 
-  /* Remap Blue palette */
-  --color-blue-950: #eff6ff;
-  --color-blue-900: #dbeafe;
-  --color-blue-400: #2563eb;
-  --color-blue-300: #1d4ed8;
+  --color-blue-950: #EFF6FF;
+  --color-blue-900: #DBEAFE;
+  --color-blue-400: #1D4ED8;
+  --color-blue-300: #1E40AF;
 
-  /* Remap Sky palette */
-  --color-sky-950: #f0f9ff;
-  --color-sky-900: #e0f2fe;
-  --color-sky-400: #0284c7;
+  --color-amber-950: #FFFBEB;
+  --color-amber-900: #FEF3C7;
+  --color-amber-400: #B45309;
 
-  /* Remap Amber palette */
-  --color-amber-950: #fffbeb;
-  --color-amber-900: #fef3c7;
-  --color-amber-400: #b45309;
+  --color-rose-950: #FFF1F2;
+  --color-rose-900: #FFE4E6;
+  --color-rose-400: #BE123C;
 
-  /* Remap Rose palette */
-  --color-rose-950: #fff1f2;
-  --color-rose-900: #ffe4e6;
-  --color-rose-400: #be123c;
-
-  /* Remap Emerald palette */
-  --color-emerald-950: #ecfdf5;
-  --color-emerald-900: #d1fae5;
+  --color-emerald-950: #ECFDF5;
+  --color-emerald-900: #D1FAE5;
   --color-emerald-400: #047857;
 }
 
@@ -76,112 +117,49 @@ input,
 textarea,
 select {
   transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: 250ms;
+  transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Light mode text adaptivity: Headings, titles, and non-button text-white turn dark */
-[data-theme="light"] h1.text-white,
-[data-theme="light"] h2.text-white,
-[data-theme="light"] h3.text-white,
-[data-theme="light"] h4.text-white,
-[data-theme="light"] h5.text-white,
-[data-theme="light"] h6.text-white,
-[data-theme="light"] p.text-white,
-[data-theme="light"] b.text-white,
-[data-theme="light"] strong.text-white,
-[data-theme="light"] label.text-white,
-[data-theme="light"] input.text-white,
-[data-theme="light"] textarea.text-white,
-[data-theme="light"] select.text-white,
-[data-theme="light"] div.text-white:not([class*="bg-blue"]):not([class*="bg-cyan"]):not([class*="bg-indigo"]):not([class*="bg-emerald"]):not([class*="bg-rose"]):not([class*="bg-amber"]):not([class*="bg-gradient"]),
-[data-theme="light"] span.text-white:not([class*="bg-blue"]):not([class*="bg-cyan"]):not([class*="bg-indigo"]):not([class*="bg-emerald"]):not([class*="bg-rose"]):not([class*="bg-amber"]):not([class*="bg-gradient"]):not(button.bg-blue-600 *):not(button.bg-cyan-600 *):not(button[class*="bg-gradient"] *) {
-  color: #0f172a;
+/* Font Families */
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--color-canvas-bg);
 }
 
-/* Form element enhancements in light mode */
-[data-theme="light"] input[type="text"],
-[data-theme="light"] input[type="date"],
-[data-theme="light"] input[type="search"],
-[data-theme="light"] textarea,
-[data-theme="light"] select {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-  border-color: #cbd5e1 !important;
+.font-mono,
+code,
+pre,
+kbd,
+samp {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
-[data-theme="light"] input::placeholder,
-[data-theme="light"] textarea::placeholder {
-  color: #94a3b8 !important;
+/* Subtle GIS Tactical Grid Background */
+.gis-grid-bg {
+  background-size: 28px 28px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
-/* Card and container borders and elevation in light mode */
-[data-theme="light"] .bg-slate-900 {
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+[data-theme="light"] .gis-grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(11, 15, 25, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 15, 25, 0.04) 1px, transparent 1px);
 }
 
-[data-theme="light"] .border-slate-800 {
-  border-color: #e2e8f0;
-}
-
-[data-theme="light"] .border-slate-700 {
-  border-color: #cbd5e1;
-}
-
-[data-theme="light"] .bg-slate-950\/60,
-[data-theme="light"] .bg-slate-900\/60 {
-  background-color: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.05);
-}
-
-/* Ensure backdrop blurs remain visible and clear in light mode */
-[data-theme="light"] .fixed.inset-0.bg-slate-950\/70,
-[data-theme="light"] .fixed.inset-0.bg-slate-950\/80 {
-  background-color: rgba(15, 23, 42, 0.45);
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-track {
-  background: #020617;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 4px;
-}
-
-[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-
-[data-theme="light"] ::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-[data-theme="light"] ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
-}
-
-/* Modern Card Borders with Subtle Glows & Elevation */
+/* Tactical GIS Command Card */
+.command-card,
 .enterprise-card {
   position: relative;
-  background-color: var(--color-slate-900);
-  border: 1px solid var(--color-slate-800);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+[data-theme="dark"] .command-card::before,
 [data-theme="dark"] .enterprise-card::before {
   content: "";
   position: absolute;
@@ -189,14 +167,18 @@ select {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
   pointer-events: none;
 }
 
+[data-theme="light"] .command-card,
 [data-theme="light"] .enterprise-card {
-  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  background-color: #FFFFFF;
+  border-color: #E2E8F0;
+  box-shadow: 0 4px 20px -2px rgba(11, 15, 25, 0.07), 0 2px 6px -1px rgba(11, 15, 25, 0.04);
 }
 
+[data-theme="light"] .command-card::before,
 [data-theme="light"] .enterprise-card::before {
   content: "";
   position: absolute;
@@ -204,31 +186,140 @@ select {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.25), transparent);
+  background: linear-gradient(90deg, transparent, rgba(2, 132, 199, 0.3), transparent);
   pointer-events: none;
 }
 
-.glow-card-cyan:hover {
-  border-color: rgba(6, 182, 212, 0.45);
-  box-shadow: 0 12px 30px -8px rgba(6, 182, 212, 0.16);
+/* Tactical Glowing Border Utilities */
+.glow-card-cyan:hover,
+.glow-cyan-active {
+  border-color: rgba(6, 182, 212, 0.55);
+  box-shadow: 0 12px 30px -8px rgba(6, 182, 212, 0.22);
 }
 
-.glow-card-blue:hover {
-  border-color: rgba(59, 130, 246, 0.45);
-  box-shadow: 0 12px 30px -8px rgba(59, 130, 246, 0.16);
+.glow-card-amber:hover,
+.glow-amber-active {
+  border-color: rgba(245, 158, 11, 0.55);
+  box-shadow: 0 12px 30px -8px rgba(245, 158, 11, 0.22);
 }
 
-.glow-card-amber:hover {
-  border-color: rgba(245, 158, 11, 0.45);
-  box-shadow: 0 12px 30px -8px rgba(245, 158, 11, 0.16);
+.glow-card-rose:hover,
+.glow-red-active {
+  border-color: rgba(239, 68, 68, 0.55);
+  box-shadow: 0 12px 30px -8px rgba(239, 68, 68, 0.22);
 }
 
-.glow-card-rose:hover {
-  border-color: rgba(244, 63, 94, 0.45);
-  box-shadow: 0 12px 30px -8px rgba(244, 63, 94, 0.16);
+/* Color-Coded Universally Understood Severity Status Chips */
+.status-chip-critical {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.15);
 }
 
-/* Professional Button Gradients */
+[data-theme="light"] .status-chip-critical {
+  background-color: #FEF2F2;
+  color: #DC2626;
+  border-color: #F87171;
+  font-weight: 800;
+}
+
+.status-chip-high {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.6);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+}
+
+[data-theme="light"] .status-chip-high {
+  background-color: #FFFBEB;
+  color: #D97706;
+  border-color: #FBBF24;
+  font-weight: 800;
+}
+
+.status-chip-moderate {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background-color: rgba(234, 179, 8, 0.15);
+  color: #EAB308;
+  border: 1px solid rgba(234, 179, 8, 0.6);
+}
+
+[data-theme="light"] .status-chip-moderate {
+  background-color: #FEFCE8;
+  color: #CA8A04;
+  border-color: #FDE047;
+  font-weight: 800;
+}
+
+.status-chip-passable {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.6);
+}
+
+[data-theme="light"] .status-chip-passable {
+  background-color: #ECFDF5;
+  color: #059669;
+  border-color: #34D399;
+  font-weight: 800;
+}
+
+/* Tactical Command GIS HUD Badge */
+.gis-telemetry-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.375rem;
+  background-color: rgba(6, 182, 212, 0.1);
+  color: #06B6D4;
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  letter-spacing: 0.025em;
+}
+
+[data-theme="light"] .gis-telemetry-badge {
+  background-color: #E0F2FE;
+  color: #0284C7;
+  border-color: #BAE6FD;
+}
+
+/* Professional Tactical Gradients */
 .btn-primary-gradient {
   background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4338ca 100%);
   color: #ffffff;
@@ -246,8 +337,79 @@ select {
   transform: translateY(0px) scale(0.99);
 }
 
+/* Touch & Field Optimized Sizing (Min 44px-48px targets) */
+.field-touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Mobile safe area padding utility */
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Light mode text adaptivity */
+[data-theme="light"] h1.text-white,
+[data-theme="light"] h2.text-white,
+[data-theme="light"] h3.text-white,
+[data-theme="light"] h4.text-white,
+[data-theme="light"] h5.text-white,
+[data-theme="light"] h6.text-white,
+[data-theme="light"] p.text-white,
+[data-theme="light"] b.text-white,
+[data-theme="light"] strong.text-white,
+[data-theme="light"] label.text-white,
+[data-theme="light"] div.text-white:not([class*="bg-blue"]):not([class*="bg-cyan"]):not([class*="bg-indigo"]):not([class*="bg-emerald"]):not([class*="bg-rose"]):not([class*="bg-amber"]):not([class*="bg-gradient"]):not(.btn-primary-gradient *),
+[data-theme="light"] span.text-white:not([class*="bg-blue"]):not([class*="bg-cyan"]):not([class*="bg-indigo"]):not([class*="bg-emerald"]):not([class*="bg-rose"]):not([class*="bg-amber"]):not([class*="bg-gradient"]):not(.btn-primary-gradient *):not(button.bg-blue-600 *):not(button.bg-cyan-600 *) {
+  color: #0B0F19 !important;
+}
+
+[data-theme="light"] input[type="text"],
+[data-theme="light"] input[type="date"],
+[data-theme="light"] input[type="search"],
+[data-theme="light"] textarea,
+[data-theme="light"] select {
+  background-color: #FFFFFF !important;
+  color: #0B0F19 !important;
+  border-color: #CBD5E1 !important;
+}
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #64748B !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: #0B0F19;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
