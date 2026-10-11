@@ -54,7 +54,7 @@ export async function calculateFlowPath(coordinates: [number, number]): Promise<
   }
 }
 
-export async function askFloodLensAI(message: string, analysisData: AnalysisRunData): Promise<string> {
+export async function askFloodlensAI(message: string, analysisData: AnalysisRunData): Promise<string> {
   try {
     const res = await fetch('/api/copilot/chat', {
       method: 'POST',

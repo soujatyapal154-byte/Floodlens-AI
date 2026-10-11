@@ -84,7 +84,7 @@ export const LimitationsPage: React.FC = () => {
           </h2>
         </div>
         <p className="text-xs text-slate-200 leading-relaxed">
-          FloodLens AI is designed exclusively as an <strong>educational, research, and hackathon prototype</strong>.
+          Floodlens AI is designed exclusively as an <strong>educational, research, and hackathon prototype</strong>.
           It must <strong>NOT</strong> be used as an operational emergency decision support system by first responders,
           civil defense authorities, or evacuation teams without independent ground verification. Emergency operations
           must rely on official disaster directives issued by the National Disaster Risk Reduction and Management Authority (NDRRMA)

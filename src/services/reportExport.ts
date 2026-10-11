@@ -7,7 +7,7 @@ import { AnalysisRunData } from '../types';
 export function exportAnalysisAsJson(analysisData: AnalysisRunData): void {
   const exportPayload = {
     metadata: {
-      generatedBy: 'FloodLens AI - Emergency Response Geospatial System',
+      generatedBy: 'Floodlens AI - Emergency Response Geospatial System',
       schemaVersion: '1.2.0',
       exportedAt: new Date().toISOString(),
       offlineReady: true,

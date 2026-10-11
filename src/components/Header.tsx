@@ -47,7 +47,7 @@ export const Header: React.FC<HeaderProps> = ({
           <div>
             <div className="flex items-center gap-1.5">
               <span className="font-extrabold text-base sm:text-lg tracking-tight text-white group-hover:text-cyan-400 transition-colors font-sans">
-                FloodLens AI
+                Floodlens AI
               </span>
               <span className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-cyan-950 text-cyan-400 border border-cyan-800/60">
                 <Radio className="w-2.5 h-2.5 animate-pulse text-cyan-400" />

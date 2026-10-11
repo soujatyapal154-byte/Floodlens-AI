@@ -243,7 +243,7 @@ export default function App() {
         analysisData={analysisData}
       />
 
-      {/* Ask FloodLens AI Assistant Modal */}
+      {/* Ask Floodlens AI Assistant Modal */}
       <AiAssistantModal
         isOpen={isAiModalOpen}
         onClose={() => setIsAiModalOpen(false)}

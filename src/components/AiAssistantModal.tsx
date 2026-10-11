@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Bot, Send, X, Sparkles, AlertCircle } from 'lucide-react';
 import { AnalysisRunData } from '../types';
-import { askFloodLensAI } from '../services/api';
+import { askFloodlensAI } from '../services/api';
 
 interface AiAssistantModalProps {
   isOpen: boolean;
@@ -18,7 +18,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
     {
       role: 'assistant',
       text: analysisData
-        ? `Hello! I am your FloodLens AI Assistant. I can answer questions about the analyzed flood in ${analysisData.areaName} (${analysisData.floodDate}). All my answers come strictly from the actual satellite calculations.`
+        ? `Hello! I am your Floodlens AI Assistant. I can answer questions about the analyzed flood in ${analysisData.areaName} (${analysisData.floodDate}). All my answers come strictly from the actual satellite calculations.`
         : 'Please select an Area and Flood Date on the Home screen and click Start Analysis first.',
     },
   ]);
@@ -55,7 +55,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
     setIsLoading(true);
 
     try {
-      const reply = await askFloodLensAI(text, analysisData);
+      const reply = await askFloodlensAI(text, analysisData);
       setMessages((prev) => [...prev, { role: 'assistant', text: reply }]);
     } catch {
       setMessages((prev) => [
@@ -78,7 +78,7 @@ export const AiAssistantModal: React.FC<AiAssistantModalProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <h3 className="font-bold text-sm text-white">Ask FloodLens AI Copilot</h3>
+                <h3 className="font-bold text-sm text-white">Ask Floodlens AI Copilot</h3>
                 <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">SAR GROUNDED</span>
               </div>
               <p className="text-[11px] text-slate-400">Strictly grounded in verified satellite radar calculations</p>

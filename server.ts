@@ -182,7 +182,7 @@ All results require field verification.`,
   }
 
   try {
-    const systemInstruction = `You are FloodLens AI Assistant.
+    const systemInstruction = `You are Floodlens AI Assistant.
 CRITICAL MANDATORY RULES:
 1. You must ONLY answer using the verified analysis data provided below.
 2. NEVER invent numbers, percentages, settlement names, coordinates, or damages.
@@ -249,7 +249,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[FloodLens AI] Simple full-stack server running on http://0.0.0.0:${PORT}`);
+    console.log(`[Floodlens AI] Simple full-stack server running on http://0.0.0.0:${PORT}`);
   });
 }
 

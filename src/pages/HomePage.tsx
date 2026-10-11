@@ -448,7 +448,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </div>
 
-      {/* The Three Observational Pillars of FloodLens AI */}
+      {/* The Three Observational Pillars of Floodlens AI */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5 pt-2">
         {/* Card 1 */}
         <div className="enterprise-card glow-card-cyan rounded-2xl p-5 space-y-3 text-xs">
